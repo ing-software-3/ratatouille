@@ -33,4 +33,4 @@ Posible predicción de preferencias
 Python 
 Visual Studio Code 
 Librerías:
-Mysql
+Mysql 
