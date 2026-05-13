@@ -1,0 +1,121 @@
+@startuml RatatouilleMarketplace
+
+class Usuario {
+    - id : int
+    - nombre : string
+    - correo : string
+    - contraseña : string
+
+    + iniciarSesion(): boolean
+    + cerrarSesion(): void
+}
+
+class Cliente {
+    - direccion : string
+    - telefono : string
+
+    + realizarPedido(): Pedido
+    + modificarPedido(pedido: Pedido): void
+    + cancelarPedido(pedido: Pedido): void
+    + guardarFavorito(producto: Producto): void
+    + verRecomendaciones(): void
+}
+
+class Restaurante {
+    - id : int
+    - nombre : string
+    - direccion : string
+    - porcentajeComision : double
+    - disponibilidad : boolean
+
+    + gestionarMenu(): void
+    + aceptarPedido(pedido: Pedido): void
+    + rechazarPedido(pedido: Pedido): void
+    + actualizarDisponibilidad(): void
+}
+
+class Administrador {
+    + gestionarUsuarios(): void
+    + gestionarRestaurantes(): void
+    + visualizarComisiones(): void
+}
+
+class Producto {
+    - id : int
+    - nombre : string
+    - descripcion : string
+    - precio : double
+    - disponible : boolean
+    - categoria : string
+
+    + actualizarPrecio(): void
+    + mostrarProducto(): void
+}
+
+class Pedido {
+    - id : int
+    - fecha : date
+    - estado : string
+    - total : double
+    - comision : double
+    - direccionEntrega : string
+    - horaEntrega : time
+
+    + agregarProducto(producto: Producto): void
+    + eliminarProducto(producto: Producto): void
+    + calcularTotal(): double
+    + calcularComision(): double
+    + actualizarDireccion(nuevaDireccion : string): void
+    + confirmarPedido(): void
+    + cancelarPedido(): void
+}
+
+class Pago {
+    - id : int
+    - metodoPago : string
+    - estado : string
+
+    + procesarPago(): boolean
+}
+
+class Favorito {
+    - id : int
+    - fechaGuardado : date
+}
+
+class Recomendacion {
+    - id : int
+    - tipoAlgoritmo : string
+
+    + generarRecomendaciones(): void
+}
+
+class Plataforma {
+    - nombre : string
+    - porcentajeGanancia : double
+
+    + enviarPedidoRestaurante(): void
+    + cobrarComision(): void
+}
+
+Usuario <|-- Cliente
+Usuario <|-- Administrador
+
+Restaurante "1" --> "*" Producto
+
+Cliente "1" --> "*" Pedido
+Pedido "*" --> "*" Producto
+
+Pedido --> Pago
+Pedido --> Restaurante
+
+Cliente "1" --> "*" Favorito
+Favorito "*" --> "1" Producto
+
+Cliente --> Recomendacion
+Recomendacion --> Producto
+
+Plataforma --> Pedido
+Plataforma --> Restaurante
+
+@enduml

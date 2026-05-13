@@ -1,0 +1,54 @@
+@startuml casosusoratatouille
+
+left to right direction
+
+actor "Cliente" as Cliente
+actor "Restaurante" as Restaurante
+actor "Administrador" as Administrador
+
+rectangle "Plataforma Ratatouille" {
+
+    usecase "Registrarse" as UC1
+    usecase "Iniciar sesión" as UC2
+    usecase "Ver productos" as UC3
+    usecase "Recibir recomendaciones" as UC4
+    usecase "Guardar favoritos" as UC5
+
+    usecase "Realizar pedido" as UC6
+    usecase "Modificar pedido" as UC7
+    usecase "Cancelar pedido" as UC8
+    usecase "Actualizar dirección de entrega" as UC9
+    usecase "Procesar pago" as UC10
+
+    usecase "Gestionar menú" as UC11
+    usecase "Aceptar pedidos" as UC12
+    usecase "Actualizar disponibilidad" as UC13
+
+    usecase "Gestionar usuarios" as UC14
+    usecase "Gestionar restaurantes" as UC15
+    usecase "Visualizar comisiones" as UC16
+}
+
+Cliente --> UC1
+Cliente --> UC2
+Cliente --> UC3
+Cliente --> UC4
+Cliente --> UC5
+Cliente --> UC6
+Cliente --> UC7
+Cliente --> UC8
+Cliente --> UC9
+Cliente --> UC10
+
+Restaurante --> UC11
+Restaurante --> UC12
+Restaurante --> UC13
+
+Administrador --> UC14
+Administrador --> UC15
+Administrador --> UC16
+
+UC6 .> UC10 : <<include>>
+UC4 .> UC3 : <<extend>>
+
+@enduml
