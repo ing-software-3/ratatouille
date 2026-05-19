@@ -1,13 +1,18 @@
 from fastapi import FastAPI
+# Importamos todos los módulos de rutas
+from app.routes import productos, pedidos, usuarios 
 
-app = FastAPI()
+app = FastAPI(
+    title="Ratatouille",
+    description="Backend modular para gestión de pedidos y recomendaciones de comida rápida",
+    version="1.0.0"
+)
 
+# Conectamos las rutas de forma organizada al core de FastAPI
+app.include_router(productos.router)
+app.include_router(pedidos.router)
+app.include_router(usuarios.router)
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str | None = None):
-    return {"item_id": item_id, "q": q}
+    return {"status": "Online", "app": "Ratatouille Marketplace API"}
